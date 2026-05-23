@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Seminare — Dr. Iren Yeresyan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --sage: #7a9e8e;
+      --sage-light: #e8f0ec;
+      --sage-dark: #3d5a50;
+      --cream: #faf8f4;
+      --warm-white: #f5f1eb;
+      --ink: #2c2820;
+      --ink-mid: #5a5248;
+      --ink-soft: #8a8078;
+      --gold: #b89a6a;
+      --gold-light: #e8d9c0;
+    }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      font-weight: 300;
+      line-height: 1.7;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: var(--cream);
+      border-bottom: 1px solid var(--gold-light);
+    }
+
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2.5rem;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.88rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-mid);
+      text-decoration: none;
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px; left: 0; right: 0;
+      height: 1px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transition: transform 0.3s;
+    }
+
+    .nav-links a:hover { color: var(--sage-dark); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-links a.active { color: var(--ink); }
+    .nav-links a.active::after { transform: scaleX(1); background: var(--sage); }
+
+    /* ── MAIN ── */
+    main {
+      flex: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 4rem 2.5rem 6rem;
+    }
+
+    /* ── TITEL ── */
+    .page-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.8rem, 5vw, 4rem);
+      font-weight: 400;
+      color: var(--ink);
+      line-height: 1.05;
+      margin-bottom: 3rem;
+    }
+
+    /* ── KACHELRASTER ── */
+    .seminars-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+    }
+
+    /* ── KACHEL ── */
+    .seminar-tile {
+      background: var(--warm-white);
+      border: 1px solid var(--gold-light);
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+
+    .seminar-tile:hover {
+      border-color: var(--sage);
+      transform: translateY(-4px);
+    }
+
+    /* Foto der Kachel */
+    .tile-photo {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: linear-gradient(155deg, var(--warm-white) 0%, var(--sage-light) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    /*
+      ✏️ Um ein echtes Foto einzufügen, ersetze div.tile-photo durch:
+      <img src="images/seminar-1.jpg" alt="Foto Seminar 1"
+        style="width:100%;aspect-ratio:16/9;object-fit:cover;display:block;" />
+    */
+
+    .tile-photo-icon {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+      opacity: 0.3;
+    }
+
+    .tile-photo-icon svg {
+      width: 32px; height: 32px;
+      stroke: var(--sage-dark); fill: none; stroke-width: 1.2;
+    }
+
+    .tile-photo-icon span {
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+
+    /* Textinhalt der Kachel */
+    .tile-body {
+      padding: 1.8rem 2rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      flex: 1;
+    }
+
+    .tile-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: var(--gold);
+      letter-spacing: 0.2em;
+    }
+
+    .tile-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--ink);
+      line-height: 1.2;
+    }
+
+    .tile-desc {
+      font-size: 0.97rem;
+      color: var(--ink-mid);
+      line-height: 1.8;
+      flex: 1;
+    }
+
+    .tile-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--sage-dark);
+      text-decoration: none;
+      border-bottom: 1px solid var(--sage);
+      padding-bottom: 2px;
+      align-self: flex-start;
+      transition: gap 0.3s, color 0.3s;
+    }
+
+    .tile-more:hover { gap: 0.9rem; color: var(--ink); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      color: rgba(255,255,255,0.38);
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.82rem;
+      letter-spacing: 0.1em;
+    }
+    footer span { color: var(--gold); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 720px) {
+      .seminars-grid { grid-template-columns: 1fr; }
+    }
+    @keyframes blurReveal {
+      from { opacity: 0; filter: blur(8px); }
+      to   { opacity: 1; filter: blur(0); }
+    }
+    main { animation: blurReveal 0.6s ease both; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <ul class="nav-links">
+        <li><a href="index.html">Startseite</a></li>
+        <li><a href="about.html">Über mich</a></li>
+        <li><a href="seminars.html" class="active">Seminare</a></li>
+        <li><a href="contact.html">Kontakt</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+
+    <h1 class="page-title">Seminare</h1>
+
+    <div class="seminars-grid">
+
+      <!-- ── KACHEL 1 ── -->
+      <div class="seminar-tile">
+        <!--
+          ✏️ Um das Foto einzufügen, ersetze div.tile-photo durch:
+          <img src="images/seminar-1.jpg" alt="Foto Seminar 1"
+            style="width:100%;aspect-ratio:16/9;object-fit:cover;display:block;" />
+        -->
+        <div>
+        <img src="images/seminar1.jpeg" alt="Foto Seminar 1"
+        style="width:100%;aspect-ratio:16/9;object-fit:cover;object-position:center bottom;display:block;" />
+      </div>
+      
+        <div class="tile-body">
+          <p class="tile-number">Seminar 01</p>
+          <!-- ✏️ Titel des Seminars -->
+          <h2 class="tile-title">Resilienz in Familien mit Migrationsgeschichte</h2>
+          <!-- ✏️ Kurze Beschreibung -->
+          <p class="tile-desc">
+            Dieses Seminar beleuchtet Resilienzprozesse in Familien mit Migrationsgeschichte…
+          </p>
+          <!-- ✏️ Ersetze seminar-1.html durch den echten Dateinamen -->
+          <a href="seminar-1.html" class="tile-more">Mehr erfahren →</a>
+        </div>
+      </div>
+
+      <!-- ── KACHEL 2 ── -->
+      <div class="seminar-tile">
+        <!--
+          ✏️ Um das Foto einzufügen, ersetze div.tile-photo durch:
+          <img src="images/seminar-2.jpg" alt="Foto Seminar 2"
+            style="width:100%;aspect-ratio:16/9;object-fit:cover;display:block;" />
+        -->
+        <div class="tile-photo">
+        <div>
+        <img src="images/seminar2.jpg" alt="Foto Seminar 2"
+          style="width:100%;aspect-ratio:16/9;object-fit:cover;display:block;" />
+      </div>
+        </div>
+        <div class="tile-body">
+          <p class="tile-number">Seminar 02</p>
+          <h2 class="tile-title">Entwicklungspsychologie in migrationssensiblen sozialpädagogischen Kontexten</h2>
+          <p class="tile-desc">
+            Das Seminar übersetzt zentrale entwicklungspsychologische Modelle in konkrete Handlungsansätze für Bildung…
+          </p>
+          <a href="seminar-2.html" class="tile-more">Mehr erfahren →</a>
+        </div>
+      </div>
+
+
+
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 <span>Dr. Iren Yeresyan</span> &middot; Psychologin &amp; Sozialpädagogin</p>
+  </footer>
+
+</body>
+</html>
